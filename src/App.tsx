@@ -1,62 +1,61 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import Form from './components/Form';
-import 'bootstrap/dist/css/bootstrap.css';
-import {
-  Todo,
-  deleteTodo,
-  fetchTodos,
-  updateTodo,
-} from './state/todo/todoSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from './state/store';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import 'bootstrap/dist/css/bootstrap.css'
+
+import './App.css'
+import Form from './components/Form'
+import { Todo, deleteTodo, fetchTodos } from './state/todo/todoSlice'
+import { AppDispatch, RootState } from './state/store'
 
 function App() {
-  const [update, setUpdate] = useState(false);
-  const [updateTodo, setUpdateTodo] = useState<Todo>();
-
-  const todo = useSelector((state: RootState) => state.todoReducer);
-  const dispatch = useDispatch<AppDispatch>();
+  const [update, setUpdate] = useState(false)
+  const [updateTodo, setUpdateTodo] = useState<Todo>()
+  const todo = useSelector((state: RootState) => state.todoReducer)
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(fetchTodos());
-  }, []);
+    dispatch(fetchTodos())
+  }, [dispatch])
 
-  const handleUpdate = (todo: Todo) => {
-    setUpdate(true);
-    setUpdateTodo(todo);
-  };
+  const handleUpdate = (todoUpdate: Todo) => {
+    setUpdate(true)
+    setUpdateTodo(todoUpdate)
+  }
 
-  const handleDelete = (todo: Todo) => {
-    dispatch(deleteTodo(todo));
-  };
+  const handleDelete = (todoDelete: Todo) => {
+    dispatch(deleteTodo(todoDelete))
+  }
 
   return (
     <>
-      {!update && <Form action='Lägg till' />}
+      {!update && <Form action="Lägg till" />}
       {update && (
         <Form
-          action='Uppdatera'
+          action="Uppdatera"
           todo={updateTodo}
           update={() => setUpdate(false)}
         />
       )}
-      <div className='container'>
-        {todo.todos.map((todo: Todo) => (
-          <ul className='todo-item' key={todo.id}>
+      <div className="container">
+        {todo.todos.map((todoItem: Todo) => (
+          <ul className="todoItem-item" key={todoItem.id}>
             <li>
-              <strong>Title:</strong> {todo.title} <br />
-              <strong>Description:</strong> {todo.body}
+              <strong>Title:</strong> {todoItem.title} <br />
+              <strong>Description:</strong> {todoItem.body}
             </li>
-            <div className='button-container'>
-              <button onClick={() => handleUpdate(todo)}>Update</button>
-              <button onClick={() => handleDelete(todo)}>Delete</button>
+            <div className="button-container">
+              <button type="submit" onClick={() => handleUpdate(todoItem)}>
+                Update
+              </button>
+              <button type="button" onClick={() => handleDelete(todoItem)}>
+                Delete
+              </button>
             </div>
           </ul>
         ))}
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
