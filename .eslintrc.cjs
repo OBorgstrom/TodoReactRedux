@@ -1,4 +1,5 @@
 module.exports = {
+  requireConfigFile: false,
   extends: [
     require.resolve('eslint-config-airbnb'),
     require.resolve('eslint-config-prettier'),

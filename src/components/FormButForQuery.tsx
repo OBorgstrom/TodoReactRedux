@@ -17,7 +17,10 @@ const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
   const queryClient = useQueryClient()
 
   const Todoschemas = z.object({
-    id: z.number(),
+    id: z
+      .number()
+      .optional()
+      .transform(() => (todo ? todo.id : undefined)),
     title: z.string().min(3, 'Titel måste vara minst 3 bokstäver'),
     body: z.string().min(3, 'Beskrivning måste vara minst 3 bokstäver'),
   })
