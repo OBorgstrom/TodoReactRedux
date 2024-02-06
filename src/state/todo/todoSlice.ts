@@ -15,11 +15,11 @@ const initialState: TodoState = {
   todos: [],
 }
 
-export const fetchTodos = createAsyncThunk('todo/all', async () => axios.get<Todo>('http://localhost:8080/api/todos/all').then(res => res.data))
+export const fetchTodos = createAsyncThunk('todo/all', async () => axios.get<Todo>('http://81.236.212.238:8080/api/todos/all').then(res => res.data))
 export const updateTodo = createAsyncThunk(
   'todo/update',
   async (todo: Todo) => axios
-      .put<Todo>('http://localhost:8080/api/todos/update', todo, {
+      .put<Todo>('http://81.236.212.238:8080/api/todos/update', todo, {
         headers: {
           id: todo.id,
         },
@@ -29,7 +29,7 @@ export const updateTodo = createAsyncThunk(
 export const deleteTodo = createAsyncThunk(
   'todo/delete',
   async (todo: Todo) => axios
-      .delete<Todo>('http://localhost:8080/api/todos/delete', {
+      .delete<Todo>('http://81.236.212.238:8080/api/todos/delete', {
         headers: {
           id: todo.id,
         },
@@ -38,7 +38,7 @@ export const deleteTodo = createAsyncThunk(
 )
 
 export const postTodo = createAsyncThunk('todo/create', async (todo: Todo) => axios
-    .post<Todo>('http://localhost:8080/api/todos/create', todo)
+    .post<Todo>('http://81.236.212.238:8080/api/todos/create', todo)
     .then(res => res.data))
 
 export const todoSlice = createSlice({

@@ -13,10 +13,13 @@
     "@ancon/eslint-config-wildcat": "^5.0.0",
     "@hookform/resolvers": "^2.9.11",
     "@reduxjs/toolkit": "^1.9.7",
+    "@tanstack/react-query": "^5.18.1",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.50.0",
+    "react-query": "^3.39.3",
     "react-redux": "^8.1.3",
     "zod": "^3.20.6"
   },
