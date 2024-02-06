@@ -23,7 +23,7 @@ const Form = ({ action, todo, update }: Props) => {
     body: z.string().min(3, 'Beskrivning måste vara minst 3 bokstäver'),
   })
 
-   type FormData = z.infer<typeof Todoschema>
+  type FormData = z.infer<typeof Todoschema>
 
   const dispatch = useDispatch<AppDispatch>()
 
