@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export interface Todo {
-  id: number
+  id?: number
   title: string
   body: string
 }
@@ -15,31 +15,33 @@ const initialState: TodoState = {
   todos: [],
 }
 
-export const fetchTodos = createAsyncThunk('todo/all', async () => axios.get<Todo>('http://localhost:8080/api/todos/all').then(res => res.data))
-export const updateTodo = createAsyncThunk(
-  'todo/update',
-  async (todo: Todo) => axios
-      .put<Todo>('http://localhost:8080/api/todos/update', todo, {
-        headers: {
-          id: todo.id,
-        },
-      })
-      .then(res => res.data),
+export const fetchTodos = createAsyncThunk('todo/all', async () =>
+  axios.get<Todo>('http://localhost:8080/api/todos/all').then(res => res.data),
 )
-export const deleteTodo = createAsyncThunk(
-  'todo/delete',
-  async (todo: Todo) => axios
-      .delete<Todo>('http://localhost:8080/api/todos/delete', {
-        headers: {
-          id: todo.id,
-        },
-      })
-      .then(() => todo),
+export const updateTodo = createAsyncThunk('todo/update', async (todo: Todo) =>
+  axios
+    .put<Todo>('http://localhost:8080/api/todos/update', todo, {
+      headers: {
+        id: todo.id,
+      },
+    })
+    .then(res => res.data),
+)
+export const deleteTodo = createAsyncThunk('todo/delete', async (todo: Todo) =>
+  axios
+    .delete<Todo>('http://localhost:8080/api/todos/delete', {
+      headers: {
+        id: todo.id,
+      },
+    })
+    .then(() => todo),
 )
 
-export const postTodo = createAsyncThunk('todo/create', async (todo: Todo) => axios
+export const postTodo = createAsyncThunk('todo/create', async (todo: Todo) =>
+  axios
     .post<Todo>('http://localhost:8080/api/todos/create', todo)
-    .then(res => res.data))
+    .then(res => res.data),
+)
 
 export const todoSlice = createSlice({
   name: 'todo',
@@ -63,7 +65,7 @@ export const todoSlice = createSlice({
         })
       })
       .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
-        state.todos = state.todos.filter(todo => todo.id != action.payload.id)
+        state.todos = state.todos.filter(todo => todo.id !== action.payload.id)
       })
   },
 })
