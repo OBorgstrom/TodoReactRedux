@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export interface Todo {
-  id: number
+  id?: number
   title: string
   body: string
 }
@@ -63,7 +63,7 @@ export const todoSlice = createSlice({
         })
       })
       .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
-        state.todos = state.todos.filter(todo => todo.id != action.payload.id)
+        state.todos = state.todos.filter(todo => todo.id !== action.payload.id)
       })
   },
 })

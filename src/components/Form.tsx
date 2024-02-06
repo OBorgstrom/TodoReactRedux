@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -17,7 +18,7 @@ const Form = ({ action, todo, update }: Props) => {
     id: z
       .number()
       .optional()
-      .transform(() => (todo ? todo.id : null)),
+      .transform(() => (todo ? todo.id : undefined)),
     title: z.string().min(3, 'Titel måste vara minst 3 bokstäver'),
     body: z.string().min(3, 'Beskrivning måste vara minst 3 bokstäver'),
   })
@@ -43,7 +44,7 @@ const Form = ({ action, todo, update }: Props) => {
   const onUpdateTodo = (data: FormData) => {
     dispatch(updateTodo(data))
     reset()
-    update()
+    update?.()
   }
 
   return (
@@ -53,14 +54,14 @@ const Form = ({ action, todo, update }: Props) => {
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Title
+            <input
+              {...register('title')}
+              id="title"
+              type="text"
+              className="form-control form-input"
+              placeholder={todo ? todo.title : 'Skriv en title'}
+            />
           </label>
-          <input
-            {...register('title')}
-            id="title"
-            type="text"
-            className="form-control form-input"
-            placeholder={todo ? todo.title : 'Skriv en title'}
-          />
           {errors.title && (
             <p className="form-error">{`${errors.title.message}`}</p>
           )}
@@ -68,19 +69,19 @@ const Form = ({ action, todo, update }: Props) => {
         <div className="mb-3">
           <label htmlFor="body" className="form-label">
             Description
+            <input
+              {...register('body')}
+              id="body"
+              type="text"
+              className="form-control form-input"
+              placeholder={todo ? todo.body : 'Skriv en beskrivning'}
+            />
           </label>
-          <input
-            {...register('body')}
-            id="body"
-            type="text"
-            className="form-control form-input"
-            placeholder={todo ? todo.body : 'Skriv en beskrivning'}
-          />
           {errors.body && (
             <p className="form-error">{`${errors.body.message}`}</p>
           )}
         </div>
-        {action == 'Uppdatera' ? (
+        {action === 'Uppdatera' ? (
           <button
             type="submit"
             disabled={isSubmitting}
