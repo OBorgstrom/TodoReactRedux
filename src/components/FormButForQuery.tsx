@@ -106,7 +106,7 @@ const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
             <p className="form-error">{`${errors.body.message}`}</p>
           )}
         </div>
-        {action == 'Uppdatera' ? (
+        {action === 'Uppdatera' ? (
           <button
             type="submit"
             disabled={isSubmitting}
