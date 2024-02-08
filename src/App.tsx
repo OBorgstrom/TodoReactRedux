@@ -6,6 +6,7 @@ import './App.css'
 import Form from './components/Form'
 import { Todo, deleteTodo, fetchTodos } from './state/todo/todoSlice'
 import { AppDispatch, RootState } from './state/store'
+import Header from './components/Header'
 
 function App() {
   const [update, setUpdate] = useState(false)
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <>
+      <Header />
       {!update && <Form action="Lägg till" />}
       {update && (
         <Form

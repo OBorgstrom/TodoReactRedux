@@ -38,12 +38,12 @@ const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
 
   const createMutation = useMutation({
     mutationFn: (entity: FormData) =>
-      axios.post('http://81.236.212.238:8080/api/todos/create', entity),
+      axios.post('http://localhost:8080/api/todos/create', entity),
   })
 
   const updateMutation = useMutation({
     mutationFn: (entity: FormData) =>
-      axios.post('http://81.236.212.238:8080/api/todos/update', entity, {
+      axios.post('http://localhost:8080/api/todos/update', entity, {
         headers: {
           id: todo?.id,
         },
