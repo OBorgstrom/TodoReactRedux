@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import 'bootstrap/dist/css/bootstrap.css'
+import { createFileRoute } from '@tanstack/react-router'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import './App.css'
-import Form from './components/Form'
-import { Todo, deleteTodo, fetchTodos } from './state/todo/todoSlice'
-import { AppDispatch, RootState } from './state/store'
-import Header from './components/Header'
+import { RootState, AppDispatch } from '../state/store'
+import { Todo, fetchTodos, deleteTodo } from '../state/todo/todoSlice'
+import Form from '../components/Form'
 
-function App() {
+function ReduxComponent() {
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()
   const todo = useSelector((state: RootState) => state.todoReducer)
@@ -29,7 +27,6 @@ function App() {
 
   return (
     <>
-      <Header />
       {!update && <Form action="Lägg till" />}
       {update && (
         <Form
@@ -60,4 +57,6 @@ function App() {
   )
 }
 
-export default App
+export const Route = createFileRoute('/redux')({
+  component: ReduxComponent,
+})

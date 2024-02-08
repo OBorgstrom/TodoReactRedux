@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useDispatch } from 'react-redux'
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useDispatch } from 'react-redux'
 
-import { AppDispatch } from '../state/store'
 import { Todo, postTodo, updateTodo } from '../state/todo/todoSlice'
+import { AppDispatch } from '../state/store'
 
 interface Props {
   action: 'Uppdatera' | 'Lägg till'
