@@ -1,2 +1,3 @@
-npx lint-staged
+FORCE_COLOR=1
 
+npx lint-staged
