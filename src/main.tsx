@@ -9,11 +9,11 @@ import { routeTree } from './routeTree.gen'
 
 // Set up a Router instance
 const router = createRouter({
-  routeTree,
-  defaultPreload: 'intent',
+  routeTree, // hämtar in alla routes som finns i applikationen
+  defaultPreload: 'intent', // default preload intent betyder att vi laddar in alla routes som finns i applikationen
 })
 
-// Register things for typesafety
+// Register things for typesafety <-- förklara ganska bra vad det gör
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router

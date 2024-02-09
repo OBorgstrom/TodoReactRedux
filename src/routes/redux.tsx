@@ -57,6 +57,15 @@ function ReduxComponent() {
   )
 }
 
+/*
+ *
+ * Skapar en Route som renderar componenten ovan ^
+ * Som sedan Tanstack router automatiskt skapar ett trädschema
+ * med alla routes som skapats så att man inte ska kunna skriva
+ * in fel path när man skriver hur navigeringen ska fungera i __root.tsx
+ *
+ */
+
 export const Route = createFileRoute('/redux')({
   component: ReduxComponent,
 })
