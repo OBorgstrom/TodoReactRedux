@@ -1,5 +1,7 @@
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+
+import Header from '../components/Header'
 
 /*
  *
@@ -11,49 +13,7 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 function RootComponent() {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          width: '100%',
-          minWidth: '400px',
-        }}
-      >
-        <Link
-          to="/"
-          activeProps={{
-            className: 'font-bold',
-          }}
-          activeOptions={{ exact: true }}
-        >
-          Home
-        </Link>{' '}
-        <Link
-          to="/about"
-          activeProps={{
-            className: 'font-bold',
-          }}
-        >
-          About
-        </Link>{' '}
-        <Link
-          to="/redux"
-          activeProps={{
-            className: 'font-bold',
-          }}
-        >
-          Redux
-        </Link>
-        <Link
-          to="/query"
-          activeProps={{
-            className: 'font-bold',
-          }}
-        >
-          Query
-        </Link>
-      </div>
-      <hr />
+      <Header />
       <Outlet /> {/* Här renderas de olika routes som finns i applikationen */}
       <TanStackRouterDevtools position="bottom-right" />
     </>
