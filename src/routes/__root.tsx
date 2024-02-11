@@ -44,6 +44,14 @@ function RootComponent() {
         >
           Redux
         </Link>
+        <Link
+          to="/query"
+          activeProps={{
+            className: 'font-bold',
+          }}
+        >
+          Query
+        </Link>
       </div>
       <hr />
       <Outlet /> {/* Här renderas de olika routes som finns i applikationen */}

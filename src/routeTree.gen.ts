@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ReduxImport } from './routes/redux'
+import { Route as QueryImport } from './routes/query'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
@@ -19,6 +20,11 @@ import { Route as IndexImport } from './routes/index'
 
 const ReduxRoute = ReduxImport.update({
   path: '/redux',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const QueryRoute = QueryImport.update({
+  path: '/query',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -44,6 +50,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/query': {
+      preLoaderRoute: typeof QueryImport
+      parentRoute: typeof rootRoute
+    }
     '/redux': {
       preLoaderRoute: typeof ReduxImport
       parentRoute: typeof rootRoute
@@ -56,6 +66,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AboutRoute,
+  QueryRoute,
   ReduxRoute,
 ])
 
