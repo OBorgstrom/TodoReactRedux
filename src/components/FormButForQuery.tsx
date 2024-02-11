@@ -1,21 +1,18 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { QueryClient, useMutation } from 'react-query'
 import axios from 'axios'
 
 import { Todo } from '../state/todo/todoSlice'
 
-interface UpdateTodo {
+interface Props {
   action: 'Uppdatera' | 'Lägg till'
-  todo: Todo
-  title: string
-  body: string
+  todo?: Todo
+  update?: () => void
 }
 
-const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
-  const queryClient = useQueryClient()
-
+const FormButForQuery = ({ action, todo, update }: Props) => {
   const Todoschemas = z.object({
     id: z
       .number()
@@ -36,14 +33,30 @@ const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
     resolver: zodResolver(Todoschemas),
   })
 
-  const createMutation = useMutation({
-    mutationFn: (entity: FormData) =>
-      axios.post('http://localhost:8080/api/todos/create', entity),
-  })
+  const queryClient = new QueryClient()
 
   const updateMutation = useMutation({
+    mutationFn: (entity: Todo) =>
+      axios.put('http://localhost:8080/api/todos/update', entity, {
+        headers: {
+          id: entity.id,
+        },
+      }),
+  })
+
+  const handleConfirmUpdate = (data: FormData) => {
+    updateMutation.mutate(data, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['todos'] })
+      },
+    })
+    reset()
+    update?.()
+  }
+
+  const createMutation = useMutation({
     mutationFn: (entity: FormData) =>
-      axios.post('http://localhost:8080/api/todos/update', entity, {
+      axios.post('http://localhost:8080/api/todos/create', entity, {
         headers: {
           id: todo?.id,
         },
@@ -52,21 +65,6 @@ const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
 
   const onSubmitTodo = (data: FormData) => {
     createMutation.mutate(data, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['todos'] })
-      },
-    })
-    reset()
-  }
-
-  const onUpdateTodo = () => {
-    const updatedTodo: Todo = {
-      ...todo,
-      title,
-      body,
-    }
-
-    updateMutation.mutate(updatedTodo, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['todos'] })
       },
@@ -113,7 +111,7 @@ const FormButForQuery = ({ action, todo, title, body }: UpdateTodo) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            onClick={handleSubmit(onUpdateTodo)}
+            onClick={handleSubmit(handleConfirmUpdate)}
           >
             Uppdatera
           </button>
