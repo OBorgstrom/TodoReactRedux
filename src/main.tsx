@@ -5,7 +5,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { store } from './state/store'
-import './index.css'
+import './index.scss'
 import { routeTree } from './routeTree.gen'
 
 // Set up a Router instance
