@@ -2,11 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+import { routeTree } from './routeTree.gen'
 import { store } from './state/store'
 import './index.scss'
-import { routeTree } from './routeTree.gen'
+
+const queryClient = new QueryClient()
 
 // Set up a Router instance
 const router = createRouter({
@@ -20,8 +22,6 @@ declare module '@tanstack/react-router' {
     router: typeof router
   }
 }
-
-const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

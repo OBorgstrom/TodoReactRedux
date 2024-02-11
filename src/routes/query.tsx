@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
-import { QueryClient, useMutation } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 
 import FormButForQuery from '../components/FormButForQuery'
@@ -8,30 +8,30 @@ import { Todo } from '../state/todo/todoSlice'
 import useGetTodos from '../hooks/useGetTodos'
 
 function QueryComponent() {
+  const queryClient = useQueryClient()
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()
   const { data: todo } = useGetTodos()
-  const queryClient = new QueryClient()
 
   const handleUpdate = (todoUpdate: Todo) => {
     setUpdate(true)
     setUpdateTodo(todoUpdate)
-    queryClient.invalidateQueries(['todos'])
+    queryClient.invalidateQueries({ queryKey: ['todos'] })
   }
 
-  const deleteMutation = useMutation((todoDelete: Todo) =>
-    axios.delete('http://localhost:8080/api/todos/delete', {
-      headers: {
-        id: todoDelete.id,
-      },
-    }),
-  )
-
+  const deleteMutation = useMutation({
+    mutationFn: (entity: Todo) =>
+      axios.delete('http://localhost:8080/api/todos/delete', {
+        headers: {
+          id: entity.id,
+        },
+      }),
+  })
   const handleDelete = (deletedTodo: Todo) => {
-    queryClient.invalidateQueries(['todos'])
+    queryClient.invalidateQueries({ queryKey: ['todos'] })
     deleteMutation.mutate(deletedTodo, {
       onSuccess: () => {
-        queryClient.invalidateQueries(['todos'])
+        queryClient.invalidateQueries({ queryKey: ['todos'] })
       },
     })
   }

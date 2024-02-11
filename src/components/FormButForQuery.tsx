@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js'
-import { QueryClient, useMutation } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 
 import { Todo } from '../state/todo/todoSlice'
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const FormButForQuery = ({ action, todo, update }: Props) => {
+  const queryClient = useQueryClient()
   const Todoschemas = z.object({
     id: z
       .number()
@@ -32,8 +33,6 @@ const FormButForQuery = ({ action, todo, update }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(Todoschemas),
   })
-
-  const queryClient = new QueryClient()
 
   const updateMutation = useMutation({
     mutationFn: (entity: Todo) =>
@@ -61,6 +60,15 @@ const FormButForQuery = ({ action, todo, update }: Props) => {
           id: todo?.id,
         },
       }),
+    onMutate: (newTodo: Todo) => {
+      const previousTodos = queryClient.getQueryData<Todo[]>(['todos'])
+
+      queryClient.setQueryData<Todo[]>(['todos'], (Todos = []) => [
+        ...Todos,
+        newTodo,
+      ])
+      return { previousTodos }
+    },
   })
 
   const onSubmitTodo = (data: FormData) => {
