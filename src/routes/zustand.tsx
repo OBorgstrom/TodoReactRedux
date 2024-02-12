@@ -7,7 +7,7 @@ import FormButForQuery from '../components/FormButForQuery'
 import { Todo } from '../state/todo/todoSlice'
 import useGetTodos from '../hooks/useGetTodos'
 
-function QueryComponent() {
+function ZustandComponent() {
   const queryClient = useQueryClient()
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()
@@ -37,7 +37,8 @@ function QueryComponent() {
   }
 
   return (
-    <>
+    <div className="container">
+      <h1>Zustand</h1>
       {!update && <FormButForQuery action="Lägg till" />}
       {update && (
         <FormButForQuery
@@ -46,9 +47,9 @@ function QueryComponent() {
           update={() => setUpdate(false)}
         />
       )}
-      <div className="container">
+      <div className="todo-list">
         {todo?.map((todoItem: Todo) => (
-          <ul className="todoItem-item" key={todoItem.id}>
+          <ul className="todo-item" key={todoItem.id}>
             <li>
               <strong>Title:</strong> {todoItem.title} <br />
               <strong>Description:</strong> {todoItem.body}
@@ -64,7 +65,7 @@ function QueryComponent() {
           </ul>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -77,6 +78,6 @@ function QueryComponent() {
  *
  */
 
-export const Route = createFileRoute('/query')({
-  component: QueryComponent,
+export const Route = createFileRoute('/zustand')({
+  component: ZustandComponent,
 })

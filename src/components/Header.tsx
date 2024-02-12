@@ -35,12 +35,12 @@ const Header = () => (
       Redux
     </Link>{' '}
     <Link
-      to="/query"
+      to="/zustand"
       activeProps={{
         className: 'font-bold',
       }}
     >
-      Query
+      Zustand
     </Link>
   </div>
 )

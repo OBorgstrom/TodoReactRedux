@@ -11,20 +11,20 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ZustandImport } from './routes/zustand'
 import { Route as ReduxImport } from './routes/redux'
-import { Route as QueryImport } from './routes/query'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
-const ReduxRoute = ReduxImport.update({
-  path: '/redux',
+const ZustandRoute = ZustandImport.update({
+  path: '/zustand',
   getParentRoute: () => rootRoute,
 } as any)
 
-const QueryRoute = QueryImport.update({
-  path: '/query',
+const ReduxRoute = ReduxImport.update({
+  path: '/redux',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,12 +50,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/query': {
-      preLoaderRoute: typeof QueryImport
-      parentRoute: typeof rootRoute
-    }
     '/redux': {
       preLoaderRoute: typeof ReduxImport
+      parentRoute: typeof rootRoute
+    }
+    '/zustand': {
+      preLoaderRoute: typeof ZustandImport
       parentRoute: typeof rootRoute
     }
   }
@@ -66,8 +66,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AboutRoute,
-  QueryRoute,
   ReduxRoute,
+  ZustandRoute,
 ])
 
 /* prettier-ignore-end */

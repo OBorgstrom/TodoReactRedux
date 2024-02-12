@@ -26,7 +26,8 @@ function ReduxComponent() {
   }
 
   return (
-    <>
+    <div className="container">
+      <h1>Redux</h1>
       {!update && <Form action="Lägg till" />}
       {update && (
         <Form
@@ -35,9 +36,9 @@ function ReduxComponent() {
           update={() => setUpdate(false)}
         />
       )}
-      <div className="container">
+      <div className="todo-list">
         {todo.todos.map((todoItem: Todo) => (
-          <ul className="todoItem-item" key={todoItem.id}>
+          <ul className="todo-item" key={todoItem.id}>
             <li>
               <strong>Title:</strong> {todoItem.title} <br />
               <strong>Description:</strong> {todoItem.body}
@@ -53,7 +54,7 @@ function ReduxComponent() {
           </ul>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
