@@ -13,12 +13,12 @@ import Header from '../components/Header'
  */
 function RootComponent() {
   return (
-    <>
+    <div className="container">
       <Header />
       <Outlet /> {/* Här renderas de olika routes som finns i applikationen */}
       <TanStackRouterDevtools position="bottom-left" />
       <ReactQueryDevtools initialIsOpen={false} />
-    </>
+    </div>
   )
 }
 
