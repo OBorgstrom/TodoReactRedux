@@ -123,3 +123,50 @@ nav {
     }
   }
 }
+
+.landing {
+  min-width: 60vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logos {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.redux-logo {
+  width: 300px;
+  margin-left: -130px;
+  margin-top: 40px;
+}
+
+.zustand-logo {
+  width: 500px;
+  margin-left: 130px;
+  margin-top: -90px;
+}
+
+.separator {
+  &::before {
+    content: '';
+    position: absolute;
+    height: 550px;
+    border: 2px solid;
+    transform: rotate(10deg);
+    margin-top: -325px;
+    margin-left: 210px;
+    border-image: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgb(0, 0, 0) 50%,
+        rgba(0, 0, 0, 0) 100%
+      )
+      1 100%;
+  }
+}
