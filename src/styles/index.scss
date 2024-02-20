@@ -1,4 +1,5 @@
-$primary-color: #0270a7;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import '_variabler';
 
 body {
   font-family: 'Arial', sans-serif;
@@ -12,6 +13,7 @@ body {
     radial-gradient(at bottom right, #214e4c, transparent);
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .container {
@@ -100,6 +102,9 @@ header {
   align-items: center;
   width: 100%;
   min-width: 400px;
+  position: sticky;
+  top: 0;
+  transition: ease-in-out 0.5s;
 }
 
 header h1 {
@@ -107,21 +112,11 @@ header h1 {
   padding-left: 40px;
 }
 
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 30%;
-  padding-right: 10%;
-
-  > a {
-    color: white;
-    text-decoration: none;
-    &:hover {
-      color: $primary-color;
-      transition: ease-in-out 0.3s;
-    }
-  }
+.blur-bg {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  transition: ease-in-out 0.5s;
 }
 
 .landing {
@@ -131,6 +126,15 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.landing-text {
+  font-family: 'Roboto', sans-serif;
+  width: 20%;
+  line-height: 50px;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 0 0 40px rgb(0, 0, 0);
 }
 
 .logos {
@@ -164,7 +168,7 @@ nav {
     border-image: linear-gradient(
         0deg,
         rgba(0, 0, 0, 0) 0%,
-        rgb(0, 0, 0) 50%,
+        rgb(255, 255, 255) 50%,
         rgba(0, 0, 0, 0) 100%
       )
       1 100%;
