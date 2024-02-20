@@ -9,9 +9,11 @@ function HomeComponent() {
       <div className="logos">
         <img src={reduxLogo} alt="redux-logo" className="redux-logo" />
         <span className="separator" />
-        <img src={zustandLogo} alt="redux-logo" className="zustand-logo" />
+        <img src={zustandLogo} alt="zustand-logo" className="zustand-logo" />
       </div>
-      <h3>Welcome Home!</h3>
+      <div className="landing-text">
+        <h1>Reduz vs Zustand</h1>
+      </div>
     </div>
   )
 }

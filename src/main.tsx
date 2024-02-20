@@ -6,7 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { routeTree } from './routeTree.gen'
 import { store } from './state/store'
-import './index.scss'
+import './styles/index.scss'
+import './styles/nav.scss'
 
 const queryClient = new QueryClient()
 
