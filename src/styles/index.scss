@@ -1,6 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import '_variabler';
 
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: $scroll-background;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $scroll-color;
+  border-radius: 10px;
+}
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: $primary-color /*#f4f4f4*/;
@@ -172,5 +188,53 @@ header h1 {
         rgba(0, 0, 0, 0) 100%
       )
       1 100%;
+  }
+}
+
+.informations-container {
+  font-family: 'Roboto', sans-serif;
+  max-width: 1000px;
+  justify-content: center;
+  align-items: center;
+  > h1 {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  > .informations-section {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    justify-content: flex-end;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 4rem;
+
+    ul {
+      list-style-type: number;
+      padding: 0 20px;
+      > li {
+        margin-bottom: 20px;
+      }
+    }
+
+    pre {
+      position: relative;
+      width: 100%;
+      background-color: #232023;
+
+      /* make space  */
+      margin: 5px 0;
+      padding: 1.75rem 1rem 1.75rem 1rem;
+      border-radius: 20px;
+      font-size: 1rem;
+
+      border: 1px solid black;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    }
   }
 }
