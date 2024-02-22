@@ -1,82 +1,66 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
 
-import FormButForQuery from '../components/FormButForQuery'
-import { Todo } from '../state/todo/todoSlice'
-import useGetTodos from '../hooks/useGetTodos'
+import ZustandCodePreview from '../components/zustand/zustandCodePreview'
+import zustandlogo from '../assets/zustand-logo.png'
 
 function ZustandComponent() {
-  const queryClient = useQueryClient()
-  const [update, setUpdate] = useState(false)
-  const [updateTodo, setUpdateTodo] = useState<Todo>()
-  const { data: todo } = useGetTodos()
-
-  const handleUpdate = (todoUpdate: Todo) => {
-    setUpdate(true)
-    setUpdateTodo(todoUpdate)
-    queryClient.invalidateQueries({ queryKey: ['todos'] })
-  }
-
-  const deleteMutation = useMutation({
-    mutationFn: (entity: Todo) =>
-      axios.delete('http://localhost:8080/api/todos/delete', {
-        headers: {
-          id: entity.id,
-        },
-      }),
-  })
-  const handleDelete = (deletedTodo: Todo) => {
-    queryClient.invalidateQueries({ queryKey: ['todos'] })
-    deleteMutation.mutate(deletedTodo, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['todos'] })
-      },
-    })
-  }
-
   return (
-    <div className="container">
-      <h1>Zustand</h1>
-      {!update && <FormButForQuery action="Lägg till" />}
-      {update && (
-        <FormButForQuery
-          action="Uppdatera"
-          todo={updateTodo}
-          update={() => setUpdate(false)}
-        />
-      )}
-      <div className="todo-list">
-        {todo?.map((todoItem: Todo) => (
-          <ul className="todo-item" key={todoItem.id}>
-            <li>
-              <strong>Title:</strong> {todoItem.title} <br />
-              <strong>Description:</strong> {todoItem.body}
-            </li>
-            <div className="button-container">
-              <button type="submit" onClick={() => handleUpdate(todoItem)}>
-                Update
-              </button>
-              <button type="button" onClick={() => handleDelete(todoItem)}>
-                Delete
-              </button>
-            </div>
-          </ul>
-        ))}
-      </div>
+    <div className="informations-container">
+      <h1>Zustand information</h1>
+      <section className="informations-section">
+        <article>
+          <p>
+            Zustand is a small, fast and scaleable bearbones state-management
+            solution for JavaScript applications. It&apos;s based on the concept
+            of a global store with a mutable state that you can subscribe to.
+            Zustand is not tied to a specific framework, so you can use it with
+            React, Vue, Angular, or even vanilla JavaScript.
+          </p>
+          <p>
+            Here are some reasons why Zustand is good for small to medium-sized
+            applications:
+            <ul>
+              <li>
+                Simplicity: Zustand has a simple API that&apos;s easy to learn
+                and use. This makes it a good choice for small to medium-sized
+                applications where you don&apos;t need the complexity of larger
+                state management libraries.
+              </li>
+              <li>
+                Performance: Zustand is lightweight and has a minimal impact on
+                performance. It uses a subscription model to update components
+                only when necessary, reducing unnecessary renders.
+              </li>
+              <li>
+                Flexibility: Zustand is not tied to a specific framework, so you
+                can use it in any JavaScript application. This makes it a
+                versatile choice for a variety of projects.
+              </li>
+              <li>
+                Scalability: While Zustand is simple, it&apos;s also capable of
+                handling more complex state management scenarios. You can
+                combine multiple stores, create middleware, and more.
+              </li>
+              <li>
+                Immutability: Zustand encourages the use of immutable state
+                updates, which can help prevent bugs and make your code easier
+                to reason about.
+              </li>
+            </ul>
+          </p>
+        </article>
+        <img src={zustandlogo} alt="zustand-logo" width={300} height={300} />
+      </section>
+      <section className="informations-section">
+        <ZustandCodePreview />
+        <p>
+          Here is an example of how you can use Zustand to manage state in a
+          React application:
+        </p>
+      </section>
     </div>
   )
 }
-
-/*
- *
- * Skapar en Route som renderar componenten ovan ^
- * Som sedan Tanstack router automatiskt skapar ett trädschema
- * med alla routes som skapats så att man inte ska kunna skriva
- * in fel path när man skriver hur navigeringen ska fungera i __root.tsx
- *
- */
 
 export const Route = createFileRoute('/zustand')({
   component: ZustandComponent,

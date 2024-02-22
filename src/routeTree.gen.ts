@@ -11,15 +11,27 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ZustandDemoImport } from './routes/zustandDemo'
 import { Route as ZustandImport } from './routes/zustand'
+import { Route as ReduxDemoImport } from './routes/reduxDemo'
 import { Route as ReduxImport } from './routes/redux'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
+const ZustandDemoRoute = ZustandDemoImport.update({
+  path: '/zustandDemo',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ZustandRoute = ZustandImport.update({
   path: '/zustand',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ReduxDemoRoute = ReduxDemoImport.update({
+  path: '/reduxDemo',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -54,8 +66,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReduxImport
       parentRoute: typeof rootRoute
     }
+    '/reduxDemo': {
+      preLoaderRoute: typeof ReduxDemoImport
+      parentRoute: typeof rootRoute
+    }
     '/zustand': {
       preLoaderRoute: typeof ZustandImport
+      parentRoute: typeof rootRoute
+    }
+    '/zustandDemo': {
+      preLoaderRoute: typeof ZustandDemoImport
       parentRoute: typeof rootRoute
     }
   }
@@ -67,7 +87,9 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AboutRoute,
   ReduxRoute,
+  ReduxDemoRoute,
   ZustandRoute,
+  ZustandDemoRoute,
 ])
 
 /* prettier-ignore-end */

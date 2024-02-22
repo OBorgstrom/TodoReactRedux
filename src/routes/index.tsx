@@ -12,7 +12,7 @@ function HomeComponent() {
         <img src={zustandLogo} alt="zustand-logo" className="zustand-logo" />
       </div>
       <div className="landing-text">
-        <h1>Reduz vs Zustand</h1>
+        <h1>Redux vs Zustand</h1>
       </div>
     </div>
   )
