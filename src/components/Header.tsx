@@ -41,6 +41,14 @@ const Header = () => {
           About
         </Link>
         <Link
+          to="/reduxzustand"
+          activeProps={{
+            className: 'is-active',
+          }}
+        >
+          Redux vs zustand
+        </Link>
+        <Link
           to="/redux"
           activeProps={{
             className: 'is-active',

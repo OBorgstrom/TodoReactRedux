@@ -9,7 +9,6 @@ function ReduxComponent() {
       <h1>Redux Information</h1>
       <section className="informations-section">
         <article>
-          <h3>A little about redux</h3>
           <p>
             Redux is a predictable state container for JavaScript apps. It helps
             you write applications that behave consistently, run in different
@@ -54,33 +53,31 @@ function ReduxComponent() {
       <section className="informations-section">
         <ReduxCodePreview code="storeText" />
         <article>
-          <h3>How to use Redux</h3>
+          <h3>Step 1</h3>
           <p>
-            To use Redux in your application, you first need to create a store
-            that holds your application&apos;s state. Then you need to define
-            actions that describe the changes you want to make to that state.
-            Finally, you need to write reducers that specify how those actions
-            change the state.
+            First, you need to create a store that holds your application&apos;s
+            state. You can do this using the configureStore function from the
+            Redux toolkit, which provides a convenient way to set up a store
+            with a reducer.
           </p>
           <p>
-            Here&apos;s a basic example of how you might use Redux in a React
-            application: <p>knapp till demo här?</p>
+            In this example, we have a counter slice that is being used in the
+            store to manage the state of the counter
           </p>
         </article>
       </section>
       <section className="informations-section">
         <article>
-          <h3>How to use Redux</h3>
+          <h3>Step 2</h3>
           <p>
-            To use Redux in your application, you first need to create a store
-            that holds your application&apos;s state. Then you need to define
-            actions that describe the changes you want to make to that state.
-            Finally, you need to write reducers that specify how those actions
-            change the state.
+            Next, you need to define a slice that describes the changes you want
+            to make to that state. You can do this using the createSlice
+            function from the Redux toolkit, which provides a convenient way to
+            define a slice with a reducer and actions.
           </p>
           <p>
-            Here&apos;s a basic example of how you might use Redux in a React
-            application:
+            In this exampel we have a counter slice that has two actions
+            increment and decrement
           </p>
         </article>
         <ReduxCodePreview code="sliceText" />
@@ -88,13 +85,12 @@ function ReduxComponent() {
       <section className="informations-section">
         <ReduxCodePreview code="usageText" />
         <article>
-          <h3>How to use Redux</h3>
+          <h3>Step 3</h3>
           <p>
-            To use Redux in your application, you first need to create a store
-            that holds your application&apos;s state. Then you need to define
-            actions that describe the changes you want to make to that state.
-            Finally, you need to write reducers that specify how those actions
-            change the state.
+            Finally, you can use the useSelector and useDispatch hooks from the
+            react-redux package to read and update the state in your components.
+            You can use the useSelector hook to read the state, and the
+            useDispatch hook to dispatch actions to update the state.
           </p>
           <p>
             Here&apos;s a basic example of how you might use Redux in a React
