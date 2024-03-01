@@ -1,4 +1,4 @@
-export const counterSliceText: string = `// counterSlice.ts
+export const reduxSliceText: string = `// counterSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CounterState {

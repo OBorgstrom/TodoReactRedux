@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import reduxlogo from '../assets/redux-logo.png'
+import ReduxCodePreview from '../components/redux/reduxCodePreview'
 
 function ReduxComponent() {
   return (
@@ -49,8 +50,9 @@ function ReduxComponent() {
         </article>
         <img src={reduxlogo} alt="redux-logo" width={300} height={300} />
       </section>
+      <h1>Code Preview</h1>
       <section className="informations-section">
-        <div>Visa lite kod </div>
+        <ReduxCodePreview code="storeText" />
         <article>
           <h3>How to use Redux</h3>
           <p>
@@ -63,6 +65,40 @@ function ReduxComponent() {
           <p>
             Here&apos;s a basic example of how you might use Redux in a React
             application: <p>knapp till demo här?</p>
+          </p>
+        </article>
+      </section>
+      <section className="informations-section">
+        <article>
+          <h3>How to use Redux</h3>
+          <p>
+            To use Redux in your application, you first need to create a store
+            that holds your application&apos;s state. Then you need to define
+            actions that describe the changes you want to make to that state.
+            Finally, you need to write reducers that specify how those actions
+            change the state.
+          </p>
+          <p>
+            Here&apos;s a basic example of how you might use Redux in a React
+            application:
+          </p>
+        </article>
+        <ReduxCodePreview code="sliceText" />
+      </section>
+      <section className="informations-section">
+        <ReduxCodePreview code="usageText" />
+        <article>
+          <h3>How to use Redux</h3>
+          <p>
+            To use Redux in your application, you first need to create a store
+            that holds your application&apos;s state. Then you need to define
+            actions that describe the changes you want to make to that state.
+            Finally, you need to write reducers that specify how those actions
+            change the state.
+          </p>
+          <p>
+            Here&apos;s a basic example of how you might use Redux in a React
+            application:
           </p>
         </article>
       </section>
