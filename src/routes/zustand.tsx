@@ -50,7 +50,7 @@ function ZustandComponent() {
             </ul>
           </p>
         </article>
-        <img src={zustandlogo} alt="zustand-logo" width={300} height={300} />
+        <img src={zustandlogo} alt="zustand-logo" width={300} height={250} />
       </section>
       <section className="informations-section">
         <ZustandCodePreview />
