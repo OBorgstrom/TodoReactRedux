@@ -60,6 +60,7 @@ const Form = ({ action, todo, update }: Props) => {
               type="text"
               className="form-control form-input"
               placeholder={todo ? todo.title : 'Skriv en title'}
+              style={{ marginLeft: '50px' }}
             />
           </label>
           {errors.title && (
