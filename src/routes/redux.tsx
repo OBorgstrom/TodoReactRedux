@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import reduxlogo from '../assets/redux-logo.png'
 import ReduxCodePreview from '../components/redux/reduxCodePreview'
@@ -96,6 +96,14 @@ function ReduxComponent() {
             Here&apos;s a basic example of how you might use Redux in a React
             application:
           </p>
+          <Link
+            to="/reduxDemo"
+            activeProps={{
+              className: 'is-active',
+            }}
+          >
+            Redux Demo
+          </Link>
         </article>
       </section>
       <section className="informations-section">

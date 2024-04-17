@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import ZustandCodePreview from '../components/zustand/zustandCodePreview'
 import zustandlogo from '../assets/zustand-logo.png'
@@ -67,6 +67,14 @@ function ZustandComponent() {
             Here&apos;s an example of how you might create a store to manage a
             counter in a React application:
           </p>
+          <Link
+            to="/zustandDemo"
+            activeProps={{
+              className: 'is-active',
+            }}
+          >
+            Zustand Demo
+          </Link>
         </article>
       </section>
       <section className="informations-section">
