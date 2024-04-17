@@ -1,19 +1,25 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
+import { useEffect } from 'react'
 
-import { Todo } from '../state/todo/todoSlice'
+import { Todo } from '../types/type'
+import { todoStore } from '../state/zustandStore'
 
 interface Props {
   action: 'Uppdatera' | 'Lägg till'
   todo?: Todo
   update?: () => void
+  focused?: boolean
+  abort?: () => void
 }
 
-const FormButForQuery = ({ action, todo, update }: Props) => {
+const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
   const queryClient = useQueryClient()
+  const zustandStore = todoStore()
   const Todoschemas = z.object({
     id: z
       .number()
@@ -29,18 +35,14 @@ const FormButForQuery = ({ action, todo, update }: Props) => {
     register,
     handleSubmit,
     reset,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(Todoschemas),
   })
 
   const updateMutation = useMutation({
-    mutationFn: (entity: Todo) =>
-      axios.put('http://localhost:8080/api/todos/update', entity, {
-        headers: {
-          id: entity.id,
-        },
-      }),
+    mutationFn: (entity: Todo) => zustandStore.updateTodo(entity),
   })
 
   const handleConfirmUpdate = (data: FormData) => {
@@ -54,12 +56,7 @@ const FormButForQuery = ({ action, todo, update }: Props) => {
   }
 
   const createMutation = useMutation({
-    mutationFn: (entity: FormData) =>
-      axios.post('http://localhost:8080/api/todos/create', entity, {
-        headers: {
-          id: todo?.id,
-        },
-      }),
+    mutationFn: (entity: FormData) => zustandStore.addTodo(entity),
     onMutate: (newTodo: Todo) => {
       const previousTodos = queryClient.getQueryData<Todo[]>(['todos'])
 
@@ -75,54 +72,64 @@ const FormButForQuery = ({ action, todo, update }: Props) => {
     createMutation.mutate(data, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['todos'] })
+        reset()
       },
     })
   }
 
+  useEffect(() => {
+    if (focused) {
+      setFocus('title')
+    }
+  })
+
   return (
     <div className="form-container">
-      <h4> {action} </h4>
+      <h2 className="title"> {action} </h2>
       <form>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
+        <div className="form-group">
+          <label htmlFor="title" className="form-title">
             Title
-            <input
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register('title')}
-              id="title"
-              type="text"
-              className="form-control form-input"
-              placeholder={todo ? todo.title : 'Skriv en title'}
-            />
           </label>
+          <input
+            {...register('title')}
+            id="title"
+            type="text"
+            className="form-input"
+            placeholder={todo ? todo.title : 'Skriv en title'}
+          />
           {errors.title && (
             <p className="form-error">{`${errors.title.message}`}</p>
           )}
         </div>
-        <div className="mb-3">
-          <label htmlFor="body" className="form-label">
+        <div className="form-group">
+          <label htmlFor="body" className="form-title">
             Description
-            <input
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register('body')}
-              id="body"
-              type="text"
-              className="form-control form-input"
-              placeholder={todo ? todo.body : 'Skriv en beskrivning'}
-            />
           </label>
+          <input
+            {...register('body')}
+            id="body"
+            type="text"
+            className="form-input"
+            placeholder={todo ? todo.body : 'Skriv en beskrivning'}
+          />
           {errors.body && (
             <p className="form-error">{`${errors.body.message}`}</p>
           )}
         </div>
         {action === 'Uppdatera' ? (
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            onClick={handleSubmit(handleConfirmUpdate)}
-          >
-            Uppdatera
-          </button>
+          <>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              onClick={handleSubmit(handleConfirmUpdate)}
+            >
+              Uppdatera
+            </button>
+            <button className="delete" type="submit" onClick={abort}>
+              Avbryt uppdatering
+            </button>
+          </>
         ) : (
           <button
             type="submit"

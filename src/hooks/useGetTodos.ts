@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-import { Todo } from '../state/todo/todoSlice'
+import { Todo } from '../types/type'
 
 async function fetchTodos() {
   const response = await axios.get<Todo[]>(

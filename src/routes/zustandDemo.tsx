@@ -1,17 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
 
 import FormButForQuery from '../components/FormButForQuery'
-import { Todo } from '../state/todo/todoSlice'
+import { Todo } from '../types/type'
 import useGetTodos from '../hooks/useGetTodos'
+import { todoStore } from '../state/zustandStore'
 
 function ZustandDemoComponent() {
   const queryClient = useQueryClient()
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()
   const { data: todo } = useGetTodos()
+  const zustandStore = todoStore()
 
   const handleUpdate = (todoUpdate: Todo) => {
     setUpdate(true)
@@ -20,12 +21,7 @@ function ZustandDemoComponent() {
   }
 
   const deleteMutation = useMutation({
-    mutationFn: (entity: Todo) =>
-      axios.delete('http://localhost:8080/api/todos/delete', {
-        headers: {
-          id: entity.id,
-        },
-      }),
+    mutationFn: (entity: Todo) => zustandStore.deleteTodo(entity),
   })
   const handleDelete = (deletedTodo: Todo) => {
     queryClient.invalidateQueries({ queryKey: ['todos'] })
@@ -37,28 +33,39 @@ function ZustandDemoComponent() {
   }
 
   return (
-    <div className="container">
-      <h1>Zustand</h1>
-      {!update && <FormButForQuery action="Lägg till" />}
-      {update && (
+    <div className="informations-container">
+      <h1>Zustand demo</h1>
+      {update ? (
         <FormButForQuery
           action="Uppdatera"
           todo={updateTodo}
           update={() => setUpdate(false)}
+          focused={update}
+          abort={() => setUpdate(false)}
         />
+      ) : (
+        <FormButForQuery action="Lägg till" />
       )}
       <div className="todo-list">
         {todo?.map((todoItem: Todo) => (
           <ul className="todo-item" key={todoItem.id}>
-            <li>
-              <strong>Title:</strong> {todoItem.title} <br />
-              <strong>Description:</strong> {todoItem.body}
-            </li>
+            <div>
+              <p>
+                <strong>Title:</strong> {todoItem.title}
+              </p>
+              <p>
+                <strong>Description:</strong> {todoItem.body}
+              </p>
+            </div>
             <div className="button-container">
               <button type="submit" onClick={() => handleUpdate(todoItem)}>
                 Update
               </button>
-              <button type="button" onClick={() => handleDelete(todoItem)}>
+              <button
+                className="delete"
+                type="button"
+                onClick={() => handleDelete(todoItem)}
+              >
                 Delete
               </button>
             </div>

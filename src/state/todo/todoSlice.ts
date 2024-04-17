@@ -1,11 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export interface Todo {
-  id?: number
-  title: string
-  body: string
-}
+import { Todo } from '../../types/type'
 
 interface TodoState {
   todos: Todo[]

@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { RootState, AppDispatch } from '../state/store'
-import { Todo, fetchTodos, deleteTodo } from '../state/todo/todoSlice'
+import { fetchTodos, deleteTodo } from '../state/todo/todoSlice'
+import { Todo } from '../types/type'
 import Form from '../components/Form'
 
 function ReduxDemoComponent() {
@@ -26,28 +27,39 @@ function ReduxDemoComponent() {
   }
 
   return (
-    <div className="container">
-      <h1>Redux</h1>
-      {!update && <Form action="Lägg till" />}
-      {update && (
+    <div className="informations-container">
+      <h1>Redux demo</h1>
+      {update ? (
         <Form
           action="Uppdatera"
           todo={updateTodo}
           update={() => setUpdate(false)}
+          focused={update}
+          abort={() => setUpdate(false)}
         />
+      ) : (
+        <Form action="Lägg till" />
       )}
       <div className="todo-list">
         {todo.todos.map((todoItem: Todo) => (
           <ul className="todo-item" key={todoItem.id}>
-            <li>
-              <strong>Title:</strong> {todoItem.title} <br />
-              <strong>Description:</strong> {todoItem.body}
-            </li>
+            <div>
+              <p>
+                <strong>Title:</strong> {todoItem.title}
+              </p>
+              <p>
+                <strong>Description:</strong> {todoItem.body}
+              </p>
+            </div>
             <div className="button-container">
               <button type="submit" onClick={() => handleUpdate(todoItem)}>
                 Update
               </button>
-              <button type="button" onClick={() => handleDelete(todoItem)}>
+              <button
+                type="button"
+                className="delete"
+                onClick={() => handleDelete(todoItem)}
+              >
                 Delete
               </button>
             </div>

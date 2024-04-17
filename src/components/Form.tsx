@@ -1,19 +1,24 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useDispatch } from 'react-redux'
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useEffect } from 'react'
 
-import { Todo, postTodo, updateTodo } from '../state/todo/todoSlice'
+import { postTodo, updateTodo } from '../state/todo/todoSlice'
+import { Todo } from '../types/type'
 import { AppDispatch } from '../state/store'
 
 interface Props {
   action: 'Uppdatera' | 'Lägg till'
   todo?: Todo
   update?: () => void
+  abort?: () => void
+  focused?: boolean
 }
 
-const Form = ({ action, todo, update }: Props) => {
+const Form = ({ action, abort, focused, todo, update }: Props) => {
   const Todoschema = z.object({
     id: z
       .number()
@@ -31,6 +36,7 @@ const Form = ({ action, todo, update }: Props) => {
     register,
     handleSubmit,
     reset,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(Todoschema),
@@ -47,48 +53,59 @@ const Form = ({ action, todo, update }: Props) => {
     update?.()
   }
 
+  useEffect(() => {
+    if (focused) {
+      setFocus('title')
+    }
+  })
+
   return (
     <div className="form-container">
-      <h4> {action} </h4>
+      <h2 className="title"> {action} </h2>
       <form>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
+        <div className="form-group">
+          <label htmlFor="title" className="form-title">
             Title
-            <input
-              {...register('title')}
-              id="title"
-              type="text"
-              className="form-control form-input"
-              placeholder={todo ? todo.title : 'Skriv en title'}
-            />
           </label>
+          <input
+            {...register('title')}
+            id="title"
+            type="text"
+            className="form-input"
+            placeholder={todo ? todo.title : 'Skriv en title'}
+          />
           {errors.title && (
             <p className="form-error">{`${errors.title.message}`}</p>
           )}
         </div>
-        <div className="mb-3">
-          <label htmlFor="body" className="form-label">
+        <div className="form-group">
+          <label htmlFor="body" className="form-title">
             Description
-            <input
-              {...register('body')}
-              id="body"
-              type="text"
-              className="form-control form-input"
-              placeholder={todo ? todo.body : 'Skriv en beskrivning'}
-            />
           </label>
+          <input
+            {...register('body')}
+            id="body"
+            type="text"
+            className="form-input"
+            placeholder={todo ? todo.body : 'Skriv en beskrivning'}
+          />
           {errors.body && (
             <p className="form-error">{`${errors.body.message}`}</p>
           )}
         </div>
         {action === 'Uppdatera' ? (
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            onClick={handleSubmit(onUpdateTodo)}
-          >
-            Uppdatera
-          </button>
+          <>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              onClick={handleSubmit(onUpdateTodo)}
+            >
+              Uppdatera
+            </button>
+            <button className="delete" type="submit" onClick={abort}>
+              Avbryt uppdatering
+            </button>
+          </>
         ) : (
           <button
             type="submit"
