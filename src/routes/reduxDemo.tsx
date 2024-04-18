@@ -48,7 +48,8 @@ function ReduxDemoComponent() {
                 <strong>Title:</strong> {todoItem.title}
               </p>
               <p>
-                <strong>Description:</strong> {todoItem.body}
+                <strong>Description:</strong>
+                <br /> {todoItem.body}
               </p>
             </div>
             <div className="button-container">

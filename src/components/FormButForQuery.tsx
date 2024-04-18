@@ -81,7 +81,7 @@ const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
     if (focused) {
       setFocus('title')
     }
-  })
+  }, [focused, setFocus])
 
   return (
     <div className="form-container">
@@ -98,10 +98,10 @@ const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
             className="form-input"
             placeholder={todo ? todo.title : 'Skriv en title'}
           />
-          {errors.title && (
-            <p className="form-error">{`${errors.title.message}`}</p>
-          )}
         </div>
+        {errors.title && (
+          <p className="form-error">{`${errors.title.message}`}</p>
+        )}
         <div className="form-group">
           <label htmlFor="body" className="form-title">
             Description
@@ -113,10 +113,10 @@ const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
             className="form-input"
             placeholder={todo ? todo.body : 'Skriv en beskrivning'}
           />
-          {errors.body && (
-            <p className="form-error">{`${errors.body.message}`}</p>
-          )}
         </div>
+        {errors.body && (
+          <p className="form-error">{`${errors.body.message}`}</p>
+        )}
         {action === 'Uppdatera' ? (
           <>
             <button
