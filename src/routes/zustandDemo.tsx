@@ -12,7 +12,7 @@ function ZustandDemoComponent() {
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()
   const { data: todo } = useGetTodos()
-  const zustandStore = todoStore()
+  const { deleteTodo } = todoStore()
 
   const handleUpdate = (todoUpdate: Todo) => {
     setUpdate(true)
@@ -21,7 +21,7 @@ function ZustandDemoComponent() {
   }
 
   const deleteMutation = useMutation({
-    mutationFn: (entity: Todo) => zustandStore.deleteTodo(entity),
+    mutationFn: (entity: Todo) => deleteTodo(entity),
   })
   const handleDelete = (deletedTodo: Todo) => {
     queryClient.invalidateQueries({ queryKey: ['todos'] })

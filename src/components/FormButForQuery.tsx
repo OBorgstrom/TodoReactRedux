@@ -19,7 +19,7 @@ interface Props {
 
 const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
   const queryClient = useQueryClient()
-  const zustandStore = todoStore()
+  const { addTodo, updateTodo } = todoStore()
   const Todoschemas = z.object({
     id: z
       .number()
@@ -42,7 +42,7 @@ const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
   })
 
   const updateMutation = useMutation({
-    mutationFn: (entity: Todo) => zustandStore.updateTodo(entity),
+    mutationFn: (entity: Todo) => updateTodo(entity),
   })
 
   const handleConfirmUpdate = (data: FormData) => {
@@ -56,7 +56,7 @@ const FormButForQuery = ({ action, abort, todo, update, focused }: Props) => {
   }
 
   const createMutation = useMutation({
-    mutationFn: (entity: FormData) => zustandStore.addTodo(entity),
+    mutationFn: (entity: FormData) => addTodo(entity),
     onMutate: (newTodo: Todo) => {
       const previousTodos = queryClient.getQueryData<Todo[]>(['todos'])
 
