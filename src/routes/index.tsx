@@ -2,8 +2,10 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import reduxLogo from '../assets/redux-logo.png'
 import zustandLogo from '../assets/zustand-logo.png'
+import useTabTitle from '../hooks/useTabTitle'
 
 function HomeComponent() {
+  useTabTitle('Redux vs Zustand')
   return (
     <div className="landing">
       <div className="logos">

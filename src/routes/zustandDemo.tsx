@@ -6,8 +6,10 @@ import FormButForQuery from '../components/FormButForQuery'
 import { Todo } from '../types/type'
 import useGetTodos from '../hooks/useGetTodos'
 import { todoStore } from '../state/zustandStore'
+import useTabTitle from '../hooks/useTabTitle'
 
 function ZustandDemoComponent() {
+  useTabTitle('Zustand Demo')
   const queryClient = useQueryClient()
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()

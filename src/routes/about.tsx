@@ -1,6 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
+import useTabTitle from '../hooks/useTabTitle'
+
 function AboutComponent() {
+  useTabTitle('About this project')
   return (
     <div className="informations-container">
       <h1>About this project</h1>

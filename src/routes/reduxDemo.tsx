@@ -6,8 +6,10 @@ import { RootState, AppDispatch } from '../state/store'
 import { fetchTodos, deleteTodo } from '../state/todo/todoSlice'
 import { Todo } from '../types/type'
 import Form from '../components/Form'
+import useTabTitle from '../hooks/useTabTitle'
 
 function ReduxDemoComponent() {
+  useTabTitle('Redux Demo')
   const [update, setUpdate] = useState(false)
   const [updateTodo, setUpdateTodo] = useState<Todo>()
   const todo = useSelector((state: RootState) => state.todoReducer)

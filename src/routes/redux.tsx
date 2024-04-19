@@ -2,8 +2,10 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import reduxlogo from '../assets/redux-logo.png'
 import ReduxCodePreview from '../components/redux/reduxCodePreview'
+import useTabTitle from '../hooks/useTabTitle'
 
 function ReduxComponent() {
+  useTabTitle('Redux Information')
   return (
     <div className="informations-container">
       <h1>Redux Information</h1>

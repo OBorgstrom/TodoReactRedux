@@ -2,8 +2,10 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import ZustandCodePreview from '../components/zustand/zustandCodePreview'
 import zustandlogo from '../assets/zustand-logo.png'
+import useTabTitle from '../hooks/useTabTitle'
 
 function ZustandComponent() {
+  useTabTitle('Zustand information')
   return (
     <div className="informations-container">
       <h1>Zustand information</h1>

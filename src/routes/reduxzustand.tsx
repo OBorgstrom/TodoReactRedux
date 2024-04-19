@@ -2,8 +2,10 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import ReduxCodePreview from '../components/redux/reduxCodePreview'
 import ZustandCodePreview from '../components/zustand/zustandCodePreview'
+import useTabTitle from '../hooks/useTabTitle'
 
 function ReduxZustandComponent() {
+  useTabTitle('Redux vs Zustand')
   return (
     <div className="informations-container">
       <h1>Zustand vs React</h1>
